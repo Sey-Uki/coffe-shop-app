@@ -1,13 +1,14 @@
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import { ThemedView } from '@/components/ThemedView';
-import { Heading } from '../components/Heading';
+import { HelloWave } from "@/components/HelloWave";
+import { ThemedView } from "@/components/ThemedView";
+import { Heading } from "../components/Heading";
 
-import { Categories } from '../components/Categories';
+import { Categories } from "../components/Categories";
+import { Cards } from "../components/Cards";
 
 export default function HomeScreen() {
-  const user = 'Diana'
+  const user = "Diana";
   return (
     <SafeAreaView>
       <ThemedView style={styles.titleContainer}>
@@ -15,8 +16,11 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <Heading text='Categories' />
+        <Heading text="Categories" />
         <Categories />
+      </ThemedView>
+      <ThemedView>
+        <Cards />
       </ThemedView>
     </SafeAreaView>
   );
@@ -24,8 +28,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   stepContainer: {

@@ -37,6 +37,8 @@ const View = styled.View`
   flex-direction: row;
 
   column-gap: 12px;
+
+  padding-horizontal: 20px;
 `;
 
 const Text = styled.Text`
