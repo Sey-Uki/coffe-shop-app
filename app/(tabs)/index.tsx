@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 
 import { ThemedView } from "@/components/ThemedView";
 import { Heading } from "../components/Heading";
@@ -28,7 +28,6 @@ export default function HomeScreen() {
         </Container>
 
         <Container>
-          <Heading text="Категории" />
           <Categories />
         </Container>
 
