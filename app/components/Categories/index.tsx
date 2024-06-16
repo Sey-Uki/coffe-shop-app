@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 
 import styled from "styled-components/native";
-import { Cappuccino } from "@/app/icons/Cappuccino";
-import { Coldbrew } from "@/app/icons/Coldbrew";
-import { Espresso } from "@/app/icons/Espresso";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 const categories = [
-  { name: "Кофе", icon: <Cappuccino /> },
-  { name: "Не кофе", icon: <Coldbrew /> },
-  { name: "Еда", icon: <Espresso /> },
+  { id: 1, name: "Кофе", category: 1 },
+  { id: 2, name: "Не кофе", category: 2 },
+  { id: 3, name: "Еда", category: 3 },
 ];
 
 export function Categories() {
@@ -21,12 +18,11 @@ export function Categories() {
     <View>
       {categories.map((item, index) => (
         <Container
-          key={item.name}
+          key={item.id}
           onPress={() => setActiveCategoryIndex(index)}
           active={index === activeCategoryIndex}
           categoriesColor={categoriesColor}
         >
-          {/* {item.icon} */}
           <Text
             style={{
               color:
@@ -54,7 +50,7 @@ const Container = styled.Pressable<{
   active: boolean;
   categoriesColor: string;
 }>`
-  width: 112px;
+  flex: 1;
 
   ${({ active, categoriesColor }) =>
     active
