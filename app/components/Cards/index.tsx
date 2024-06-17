@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import styled from "styled-components/native";
-import { ActivityIndicator, Alert, Pressable, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  RefreshControl,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import axios from "axios";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { Link } from "expo-router";
@@ -20,7 +27,7 @@ export function Cards() {
 
   const color = useThemeColor({}, "text");
 
-  useEffect(() => {
+  const fetchCards = () => {
     setIsLoading(true);
     axios
       .get("https://5735b40cee7b5c0d.mokky.dev/cards")
@@ -30,7 +37,9 @@ export function Cards() {
         Alert.alert("Ошибка", "Нет продукции");
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  };
+
+  useEffect(() => fetchCards(), []);
 
   if (isLoading) {
     return (
@@ -41,8 +50,12 @@ export function Cards() {
   }
 
   return (
-    <Main>
-      {items.map((item) => (
+    <FlatList
+      refreshControl={
+        <RefreshControl refreshing={isLoading} onRefresh={fetchCards} />
+      }
+      data={items}
+      renderItem={({ item }) => (
         <Container key={item.id}>
           <Link
             asChild
@@ -51,7 +64,7 @@ export function Cards() {
               params: { id: item.id },
             }}
           >
-            <Pressable
+            <TouchableOpacity
               style={{
                 flexDirection: "row",
                 alignItems: "center",
@@ -65,28 +78,25 @@ export function Cards() {
                 <Name style={{ color }}>{item.name}</Name>
                 <Description style={{ color }}>{item.description}</Description>
               </ContainerDescription>
-            </Pressable>
+            </TouchableOpacity>
           </Link>
 
           <ContainerPrice>
             <Price style={{ color }}>{item.price}р</Price>
           </ContainerPrice>
         </Container>
-      ))}
-    </Main>
+      )}
+    />
   );
 }
-
-const Main = styled.View`
-  margin: 10px auto;
-  gap: 17px;
-  width: 100%;
-`;
 
 const Container = styled.View`
   padding: 7px;
   flex-direction: row;
   align-items: center;
+
+  width: 100%;
+  margin: 10px auto;
 `;
 
 const ContainerDescription = styled.View`
@@ -109,7 +119,7 @@ const Description = styled.Text`
   font-size: 14px;
 `;
 
-const ContainerPrice = styled.View`
+const ContainerPrice = styled.TouchableOpacity`
   border: 1px solid #d0ccca;
   border-radius: 100%;
   padding: 5px 10px;

@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, View } from "react-native";
 
 import { ThemedView } from "@/components/ThemedView";
 import { Heading } from "../components/Heading";
@@ -27,20 +27,19 @@ export default function HomeScreen() {
           <Special />
         </Container>
 
-        <Container>
+        <View>
           <Categories />
+        </View>
+
+        <Container>
+          <Cards />
         </Container>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Container>
-            <Cards />
-          </Container>
-        </ScrollView>
       </ThemedView>
     </SafeAreaView>
   );
 }
 
 const Container = styled.View`
-  gap: 8;
-  margin-bottom: 16;
+  gap: 8px;
+  padding-bottom: 16px;
 `;
