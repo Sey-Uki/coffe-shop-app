@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 import styled from "styled-components/native";
-import { ActivityIndicator, Alert, View } from "react-native";
+import { ActivityIndicator, Alert, Pressable, View } from "react-native";
 import axios from "axios";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import { isLoading } from "expo-font";
+import { Link } from "expo-router";
 
 type Item = {
   id: number;
@@ -44,12 +44,29 @@ export function Cards() {
     <Main>
       {items.map((item) => (
         <Container key={item.id}>
-          <Image src={item.img} />
+          <Link
+            asChild
+            href={{
+              pathname: "/cards/[id]",
+              params: { id: item.id },
+            }}
+          >
+            <Pressable
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 12,
+                flex: 1,
+              }}
+            >
+              <Image src={item.img} />
 
-          <ContainerDescription>
-            <Name style={{ color }}>{item.name}</Name>
-            <Description style={{ color }}>{item.description}</Description>
-          </ContainerDescription>
+              <ContainerDescription>
+                <Name style={{ color }}>{item.name}</Name>
+                <Description style={{ color }}>{item.description}</Description>
+              </ContainerDescription>
+            </Pressable>
+          </Link>
 
           <ContainerPrice>
             <Price style={{ color }}>{item.price}р</Price>
@@ -66,13 +83,10 @@ const Main = styled.View`
   width: 100%;
 `;
 
-const Container = styled.Pressable`
+const Container = styled.View`
   padding: 7px;
-  border-radius: 15px;
   flex-direction: row;
   align-items: center;
-
-  gap: 12px;
 `;
 
 const ContainerDescription = styled.View`
